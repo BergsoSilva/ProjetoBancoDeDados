@@ -199,18 +199,23 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
     
     // menu flutuante 
     private void preencherManuFlutuane () {
-        JMenuItem menusItens [] = {new JMenuItem("questaoD")};
+        JMenuItem menusItens [] = {new JMenuItem("Consultas")};
+        
+        
         menusItens[0].addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                Consultas consultas;
                 try {
-                    consultar();
+                    consultas = new Consultas();
+                    consultas.setVisible(true);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
                     Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
             }
         });
         
