@@ -44,6 +44,6 @@ public class ControlaConexao {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ControlaConexao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_apbd","adson","123");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_apbd","root","root");
     }
 }

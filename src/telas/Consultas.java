@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.D;
 import modelo.ProcedureTableModel;
 import modelo.User;
@@ -27,12 +28,13 @@ public class Consultas extends javax.swing.JFrame {
   
     public Consultas() throws ClassNotFoundException, SQLException {
         initComponents();
-          consultar();
-        carregarTabela ();
+       // consultar();
+        //carregarTabela ();
       
     }
     
-     private void carregarTabela () {
+     private void carregarTabela () throws ClassNotFoundException, SQLException {
+         consultar();
         ProcedureTableModel modelo = new ProcedureTableModel(listaProcedure);
         jTableProcedures.setModel(modelo);
     }
@@ -66,6 +68,8 @@ public class Consultas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProcedures = new javax.swing.JTable();
         jButtonConsultar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +81,12 @@ public class Consultas extends javax.swing.JFrame {
 
         jLabel1.setText("Mostrar tabelas Relacionadas");
 
+        jTextFieldTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTabelaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
@@ -85,8 +95,8 @@ public class Consultas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addComponent(jTextFieldTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,11 +105,11 @@ public class Consultas extends javax.swing.JFrame {
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
 
         jDesktopPane1.add(jInternalFrame1);
-        jInternalFrame1.setBounds(40, 10, 300, 220);
+        jInternalFrame1.setBounds(40, 40, 310, 250);
 
         jPanel1.add(jDesktopPane1);
         jDesktopPane1.setBounds(0, 0, 400, 270);
@@ -129,6 +139,19 @@ public class Consultas extends javax.swing.JFrame {
         jPanel1.add(jButtonConsultar);
         jButtonConsultar.setBounds(20, 470, 110, 23);
 
+        jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(303, 480, 100, 23);
+
+        jButton2.setText("jButton2");
+        jPanel1.add(jButton2);
+        jButton2.setBounds(20, 330, 73, 23);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,8 +169,8 @@ public class Consultas extends javax.swing.JFrame {
 
     private void jButtonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarActionPerformed
        try {
-           consultar();
-           
+           carregarTabela();
+           JOptionPane.showMessageDialog(null, "Entrou....");
            jTextFieldTabela.setEditable(false);
        } catch (ClassNotFoundException ex) {
            Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,10 +179,20 @@ public class Consultas extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_jButtonConsultarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextFieldTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTabelaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTabelaActionPerformed
+
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonConsultar;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JInternalFrame jInternalFrame1;

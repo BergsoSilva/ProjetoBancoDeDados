@@ -60,7 +60,7 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
      * @param user
      * @throws SQLException
      */
-    public TelaInformation_Schema(User user) throws SQLException {
+    public TelaInformation_Schema(User user) throws SQLException, ClassNotFoundException {
         initComponents();
         this.user = user;
         carregarLabelBanco();
@@ -69,6 +69,7 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
         
         painelBanco.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 20));
         painelBanco.setPreferredSize(new Dimension(800, 700));
+        consultar();
         carregarTabela ();
         preencherManuFlutuane ();
     }   
@@ -184,17 +185,23 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
      */
     
    
-    public static void main(String args[]) throws SQLException {
+    public static void main(String args[]) throws SQLException{
         
          User user = new User();
          user.setHost("localhost");
          user.setPorta("3306");
-         user.setUsuario("adson");
+         user.setUsuario("root");
          user.setDriver("jdbc:mysql://");
-         user.setPassword("123");
+         user.setPassword("root");
         
-        TelaInformation_Schema tela = new TelaInformation_Schema(user);
-        tela.setVisible(true);       
+        TelaInformation_Schema tela;
+        try {
+            tela = new TelaInformation_Schema(user);
+             tela.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+              
     }  
     
     // menu flutuante 
