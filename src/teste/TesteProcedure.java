@@ -46,9 +46,9 @@ public class TesteProcedure {
         
         ConsultasDAO dao = new ConsultasDAO ();
         D d = new D();
-            d.setLadon("bairro");
-            d.setLado1("zona");
-             System.out.println(dao.questaoF(d));
+            d.setLadon("bd_apbd");
+            
+             System.out.println(dao.questaoI(d));
         
               
               

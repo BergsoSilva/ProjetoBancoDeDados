@@ -84,9 +84,43 @@ public class ConsultasDAO{
     return ds;    
         
     }
-}
-    
-        
     
     
+    public List<D> questaoI(D d ) throws ClassNotFoundException, SQLException{
+              Connection conexao=null;
+              CallableStatement instrucao=null;
 
+               String  parametro1 = d.getLadon();
+              
+               Class.forName("com.mysql.jdbc.Driver");
+
+               conexao = ControlaConexao.getConexao3();
+
+               instrucao = conexao.prepareCall("{ call sp_questaoI(?) }");
+               
+               instrucao.setString(1,parametro1);
+             
+               instrucao.execute();
+
+               ResultSet resultado =instrucao.executeQuery();
+               List<D> ds = new ArrayList<> ();
+            
+               while (resultado.next()) {
+
+                 D res = new D();
+                 res.setLadon(resultado.getString("TABELA"));
+                 res.setLado1(resultado.getString("TAMANHO"));
+                 res.setPar(resultado.getString("BANCO"));
+                 
+                 
+                 ds.add(res);
+ 
+                }
+        return ds;
+               
+      
+  }
+    
+}      
+    
+    

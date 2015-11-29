@@ -68,6 +68,7 @@ public class Consultas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jInternalFrame1 = new javax.swing.JInternalFrame();
@@ -80,6 +81,17 @@ public class Consultas extends javax.swing.JFrame {
         jTableProcedures = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButtonNovaConsulta = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -215,6 +227,8 @@ public class Consultas extends javax.swing.JFrame {
 
     private void jButtonNovaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaConsultaActionPerformed
         jTextFieldTabela.setEditable(true);
+        jTextFieldTabela1.setVisible(true);
+        JTextFieldTabela2.setVisible(true);
         jTableProcedures.setModel(new ProcedureTableModel(listaProcedure));
          limpartabela ();
         
@@ -234,6 +248,9 @@ public class Consultas extends javax.swing.JFrame {
             d.setLado1(JTextFieldTabela2.getText());
            this.listaProcedure=dao.questaoF(d);
            jTableProcedures.setModel(new ProcedureTableModel(listaProcedure));
+           
+            jTextFieldTabela1.setEnabled(false);
+            JTextFieldTabela2.setEnabled(false);
            
            
        } catch (ClassNotFoundException ex) {
@@ -267,6 +284,7 @@ public class Consultas extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableProcedures;
     private javax.swing.JTextField jTextFieldTabela;

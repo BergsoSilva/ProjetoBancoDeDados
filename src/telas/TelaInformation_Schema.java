@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JMenuItem;
 import modelo.D;
+import modelo.Procedure3pTableModel;
 import modelo.ProcedureTableModel;
 
 /**
@@ -51,6 +52,7 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
     private int cont = 0;
     private User user;
     private JTable[] table = new JTable[TOTAL];
+    private String bancoProcedure ; // atributo para a rpocedute sa questaoI
      
     private List<D> listaProcedure = new ArrayList<>();
     private  D d =  new D();
@@ -84,14 +86,15 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
     private void initComponents() {
 
         opcoesPomenu = new javax.swing.JPopupMenu();
+        consultasDAO1 = new dao.ConsultasDAO();
         scrollRadio = new javax.swing.JScrollPane();
         JListlBancos = new javax.swing.JList();
         scrollRadio1 = new javax.swing.JScrollPane();
         JListTabelas = new javax.swing.JList();
         painelBanco = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaProcedures = new javax.swing.JTextArea();
         jButtonConsultas = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaProceduresMaisDe2Par = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -130,12 +133,6 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
 
         getContentPane().add(painelBanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 29, 480, 440));
 
-        jTextAreaProcedures.setColumns(20);
-        jTextAreaProcedures.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaProcedures);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 526, 480, -1));
-
         jButtonConsultas.setText("Consultas");
         jButtonConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,6 +140,21 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonConsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 490, -1, -1));
+
+        tabelaProceduresMaisDe2Par.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tabelaProceduresMaisDe2Par);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 520, -1, 128));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -167,7 +179,7 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
      */
     
    
-    public static void main(String args[]) throws SQLException {
+    /*public static void main(String args[]) throws SQLException {
          User user = new User();
          user.setHost("localhost");
          user.setPorta("3306");
@@ -179,16 +191,31 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
         tela.setVisible(true);       
     } 
     
-    
+    */ 
     
     // menu flutuante 
     private void preencherManuFlutuane () {
-        JMenuItem menusItens [] = {new JMenuItem("QuestaoF")};
+        JMenuItem menusItens [] = {new JMenuItem("QuestaoI")};
         menusItens[0].addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,"Ola foi clicado");
+                   
+                 ConsultasDAO dao = new ConsultasDAO ();
+                 D d = new D();
+                 d.setLadon(pegarStringBanco(bancoProcedure));
+                try {
+                    
+                     listaProcedure=dao.questaoI(d); // paga os dados do banco e joga na procedure
+                            
+                     tabelaProceduresMaisDe2Par.setModel(new Procedure3pTableModel(listaProcedure));
+                   } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+             
             }
         });
         
@@ -267,7 +294,9 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
         }       
    }
    
-   
+   private String pegarStringBanco (String banco){
+       return banco;
+   }
     
     private void carregarLabelBanco() throws SQLException{                       
         JListlBancos.setCellRenderer(new LabelRenderer());
@@ -287,8 +316,13 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
                 int index = JListlBancos.locationToIndex(e.getPoint());
                 System.out.println("entrou banco");
                 String banco = ((JLabel) JListlBancos.getModel().getElementAt(index)).getText();
+                
+                bancoProcedure=banco;                
                 String novoBanco = banco.toUpperCase();
                 user.setPrivilegio(banco);
+                 if(e.getButton()==MouseEvent.BUTTON3){
+                     opcoesPomenu.show(e.getComponent(), e.getX(), e.getY());
+                 }
                 
                  painelBanco.setBorder(BorderFactory.createTitledBorder(BorderFactory.createCompoundBorder(),"Base de Dados << "+novoBanco+" >>", 1, 1));
                 
@@ -348,12 +382,13 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList JListTabelas;
     private javax.swing.JList JListlBancos;
+    private dao.ConsultasDAO consultasDAO1;
     private javax.swing.JButton jButtonConsultas;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaProcedures;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu opcoesPomenu;
     private javax.swing.JPanel painelBanco;
     private javax.swing.JScrollPane scrollRadio;
     private javax.swing.JScrollPane scrollRadio1;
+    private javax.swing.JTable tabelaProceduresMaisDe2Par;
     // End of variables declaration//GEN-END:variables
 }
