@@ -70,9 +70,7 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
         painelBanco.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 20));
         painelBanco.setPreferredSize(new Dimension(800, 700));
         //setTitulos();
-        preencherManuFlutuane ();
-        //consultar();
-        carregarTabela ();
+      
         preencherManuFlutuane ();
     }   
 
@@ -91,11 +89,12 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
         scrollRadio1 = new javax.swing.JScrollPane();
         JListTabelas = new javax.swing.JList();
         painelBanco = new javax.swing.JPanel();
-        jButtonConsultas = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaProcedures = new javax.swing.JTextArea();
+        jButtonConsultas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         JListlBancos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bancos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(233, 18, 18))); // NOI18N
         JListlBancos.setModel(new javax.swing.AbstractListModel() {
@@ -105,8 +104,12 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
         });
         scrollRadio.setViewportView(JListlBancos);
 
+        getContentPane().add(scrollRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 21, 246, 294));
+
         JListTabelas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tabelas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(233, 23, 23))); // NOI18N
         scrollRadio1.setViewportView(JListTabelas);
+
+        getContentPane().add(scrollRadio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 347, 246, 275));
 
         painelBanco.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -114,65 +117,32 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout painelBancoLayout = new javax.swing.GroupLayout(painelBanco);
+        painelBanco.setLayout(painelBancoLayout);
+        painelBancoLayout.setHorizontalGroup(
+            painelBancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 480, Short.MAX_VALUE)
+        );
+        painelBancoLayout.setVerticalGroup(
+            painelBancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 440, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(painelBanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 29, 480, 440));
+
+        jTextAreaProcedures.setColumns(20);
+        jTextAreaProcedures.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaProcedures);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 526, 480, -1));
+
         jButtonConsultas.setText("Consultas");
         jButtonConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConsultasActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout painelBancoLayout = new javax.swing.GroupLayout(painelBanco);
-        painelBanco.setLayout(painelBancoLayout);
-        painelBancoLayout.setHorizontalGroup(
-            painelBancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelBancoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonConsultas)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        painelBancoLayout.setVerticalGroup(
-            painelBancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelBancoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonConsultas)
-                .addContainerGap())
-        );
-
-        jTextAreaProcedures.setColumns(20);
-        jTextAreaProcedures.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaProcedures);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(scrollRadio, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-                    .addComponent(scrollRadio1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                    .addComponent(painelBanco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(painelBanco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(scrollRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(scrollRadio1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jButtonConsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 490, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -185,14 +155,10 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
     }//GEN-LAST:event_painelBancoMouseClicked
 
     private void jButtonConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultasActionPerformed
-         try {
+       
              Consultas consultas = new Consultas();
              consultas.setVisible(true);
-         } catch (ClassNotFoundException ex) {
-             Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (SQLException ex) {
-             Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
-         }
+       
     }//GEN-LAST:event_jButtonConsultasActionPerformed
 
     /**

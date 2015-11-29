@@ -55,28 +55,29 @@ public class ConsultasDAO{
               Connection conexao=null;
               CallableStatement instrucao=null;
 
-               String  parametro1 = d.getLadon();
-               String parametro2 = d.getLado1();
+               String  parametro1 = d.getLado1();
+               String  parametro2 = d.getLadon();
                Class.forName("com.mysql.jdbc.Driver");
 
                conexao = ControlaConexao.getConexao3();
 
                instrucao = conexao.prepareCall("{ call sp_questaoF(?,?) }");
+               
                instrucao.setString(1,parametro1);
                instrucao.setString(2,parametro2);
                instrucao.execute();
 
-               ResultSet rs =instrucao.executeQuery();
+               ResultSet resultado =instrucao.executeQuery();
                List<D> ds = new ArrayList<> ();
-                D res;   
-               while (rs.next()) {
+            
+               while (resultado.next()) {
 
-                 res = new D();
-                 res.setLadon(rs.getString("LADO_N"));
-                 res.setLado1(rs.getString("LADO_1"));
-                 res.setPar(rs.getString("RESULTADO"));
+                 D res = new D();
+                 res.setLadon(resultado.getString("LADO_N"));
+                 res.setLado1(resultado.getString("LADO_1"));
+                 //res.setPar(rs.getString("RESULTADO"));
 
-       ds.add(res);
+                 ds.add(res);
              
     }
 
