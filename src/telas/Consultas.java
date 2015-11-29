@@ -69,7 +69,7 @@ public class Consultas extends javax.swing.JFrame {
         jTableProcedures = new javax.swing.JTable();
         jButtonConsultar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonNovaConsulta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -148,9 +148,14 @@ public class Consultas extends javax.swing.JFrame {
         jPanel1.add(jButton1);
         jButton1.setBounds(303, 480, 100, 23);
 
-        jButton2.setText("jButton2");
-        jPanel1.add(jButton2);
-        jButton2.setBounds(20, 330, 73, 23);
+        jButtonNovaConsulta.setText("Nova consulta");
+        jButtonNovaConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovaConsultaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonNovaConsulta);
+        jButtonNovaConsulta.setBounds(20, 330, 120, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,13 +192,17 @@ public class Consultas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldTabelaActionPerformed
 
+    private void jButtonNovaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaConsultaActionPerformed
+        jTextFieldTabela.setEditable(true);
+    }//GEN-LAST:event_jButtonNovaConsultaActionPerformed
+
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonConsultar;
+    private javax.swing.JButton jButtonNovaConsulta;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;

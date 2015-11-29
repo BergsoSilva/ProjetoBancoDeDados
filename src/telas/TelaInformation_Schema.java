@@ -45,7 +45,7 @@ import modelo.ProcedureTableModel;
 public class TelaInformation_Schema extends javax.swing.JFrame {
     
     
-    private static int TOTAL = 2;
+     private static int TOTAL = 2;
     private Vector listaBancos = new Vector();
     private Vector listaTabelas = new Vector();
     private int cont = 0;
@@ -60,7 +60,7 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
      * @param user
      * @throws SQLException
      */
-    public TelaInformation_Schema(User user) throws SQLException, ClassNotFoundException {
+    public TelaInformation_Schema(User user) throws SQLException {
         initComponents();
         this.user = user;
         carregarLabelBanco();
@@ -69,7 +69,9 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
         
         painelBanco.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 20));
         painelBanco.setPreferredSize(new Dimension(800, 700));
-        consultar();
+        //setTitulos();
+        preencherManuFlutuane ();
+        //consultar();
         carregarTabela ();
         preencherManuFlutuane ();
     }   
@@ -89,8 +91,9 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
         scrollRadio1 = new javax.swing.JScrollPane();
         JListTabelas = new javax.swing.JList();
         painelBanco = new javax.swing.JPanel();
+        jButtonConsultas = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableProcedures = new javax.swing.JTable();
+        jTextAreaProcedures = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -111,29 +114,33 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
             }
         });
 
+        jButtonConsultas.setText("Consultas");
+        jButtonConsultas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConsultasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelBancoLayout = new javax.swing.GroupLayout(painelBanco);
         painelBanco.setLayout(painelBancoLayout);
         painelBancoLayout.setHorizontalGroup(
             painelBancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 436, Short.MAX_VALUE)
+            .addGroup(painelBancoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonConsultas)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelBancoLayout.setVerticalGroup(
             painelBancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 333, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelBancoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonConsultas)
+                .addContainerGap())
         );
 
-        jTableProcedures.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTableProcedures);
+        jTextAreaProcedures.setColumns(20);
+        jTextAreaProcedures.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaProcedures);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,29 +151,27 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(scrollRadio, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                     .addComponent(scrollRadio1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                        .addComponent(painelBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                    .addComponent(painelBanco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(scrollRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(scrollRadio1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(155, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(painelBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(painelBanco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(scrollRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(scrollRadio1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -179,50 +184,45 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_painelBancoMouseClicked
 
+    private void jButtonConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultasActionPerformed
+         try {
+             Consultas consultas = new Consultas();
+             consultas.setVisible(true);
+         } catch (ClassNotFoundException ex) {
+             Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (SQLException ex) {
+             Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }//GEN-LAST:event_jButtonConsultasActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws java.sql.SQLException
      */
     
    
-    public static void main(String args[]) throws SQLException{
-        
+    public static void main(String args[]) throws SQLException {
          User user = new User();
          user.setHost("localhost");
          user.setPorta("3306");
-         user.setUsuario("root");
+         user.setUsuario("administrador");
+         user.setPassword("123456");
          user.setDriver("jdbc:mysql://");
-         user.setPassword("root");
         
-        TelaInformation_Schema tela;
-        try {
-            tela = new TelaInformation_Schema(user);
-             tela.setVisible(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
-        }
-              
-    }  
+        TelaInformation_Schema tela = new TelaInformation_Schema(user);
+        tela.setVisible(true);       
+    } 
+    
+    
     
     // menu flutuante 
     private void preencherManuFlutuane () {
-        JMenuItem menusItens [] = {new JMenuItem("Consultas")};
-        
-        
+        JMenuItem menusItens [] = {new JMenuItem("QuestaoF")};
         menusItens[0].addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Consultas consultas;
-                try {
-                    consultas = new Consultas();
-                    consultas.setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
+                JOptionPane.showMessageDialog(null,"Ola foi clicado");
             }
         });
         
@@ -232,9 +232,9 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
         
     }
     
-    private void carregarTabela () {
+     private void carregarTabela () {
         ProcedureTableModel modelo = new ProcedureTableModel(listaProcedure);
-        jTableProcedures.setModel(modelo);
+        ///jTableProcedures.setModel(modelo);
     }
     
     // seta titulos nas tabelas
@@ -243,16 +243,23 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
           
           pegarParametro();
           
-         this.listaProcedure=dao.consultaD(this.d); 
+      //   this.listaProcedure=dao.consultaD(this.d); 
           
          //System.out.println( );
           
     }
     
     private void pegarParametro () {
-        this.d.setPar("bairro");
+       // this.d.setPar("bairro");
     }
-        
+   
+    
+    // seta titulos nas tabelas
+    private void setTitulos(){
+         JListlBancos.setBorder(BorderFactory.createTitledBorder(BorderFactory.createCompoundBorder(),"<< BANCOS >>", 1, 1));
+         JListTabelas.setBorder(BorderFactory.createTitledBorder(BorderFactory.createCompoundBorder(),"<< TABELAS >>", 1, 1));
+    }
+    
     // renderiza a criacão de RadioButtos nas JLists , repesentado os banco e tabelas
     private static class LabelRenderer implements ListCellRenderer{
 
@@ -280,7 +287,14 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
             painelBanco.setVisible(false);
             painelBanco.setVisible(true);
             table[cont].setVisible(true);
-            
+            table[cont].addMouseListener(new MouseAdapter() {
+                         @Override
+                         public void mousePressed(MouseEvent e){
+                             if (e.getButton()==MouseEvent.BUTTON3){
+                                   opcoesPomenu.show(e.getComponent(), e.getX(), e.getY());
+                          }
+                         }
+                       });
             scroll.setBorder(BorderFactory.createTitledBorder(BorderFactory.createCompoundBorder()," << "+ nomeCidade+" >> ", 1, 1));
 
             cont++;
@@ -304,8 +318,6 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
         JListlBancos.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e){
-                
-               
                 int index = JListlBancos.locationToIndex(e.getPoint());
                 System.out.println("entrou banco");
                 String banco = ((JLabel) JListlBancos.getModel().getElementAt(index)).getText();
@@ -313,13 +325,9 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
                 user.setPrivilegio(banco);
                 
                  painelBanco.setBorder(BorderFactory.createTitledBorder(BorderFactory.createCompoundBorder(),"Base de Dados << "+novoBanco+" >>", 1, 1));
-               
+                
                     try {
-                         if (e.getClickCount()==2){
                         carregarLabelTabela(dao.selecionarBancoETabelas());
-                         } if (e.getButton()==MouseEvent.BUTTON3){
-                            opcoesPomenu.show(e.getComponent(), e.getX(), e.getY());
-                          }
                     } catch (SQLException ex) {
                         Logger.getLogger(TelaInformation_Schema.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -358,9 +366,11 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
                 int index = JListTabelas.locationToIndex(e.getPoint());
                     JLabel label = (JLabel) JListTabelas.getModel().getElementAt(index);
                 try {
-                    carregarJTable(label.getText());
                     
-                    //repaint();
+                   
+                     carregarJTable(label.getText());
+                     ConsultasDAO dao = new ConsultasDAO ();
+                    
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -372,8 +382,9 @@ public class TelaInformation_Schema extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList JListTabelas;
     private javax.swing.JList JListlBancos;
+    private javax.swing.JButton jButtonConsultas;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableProcedures;
+    private javax.swing.JTextArea jTextAreaProcedures;
     private javax.swing.JPopupMenu opcoesPomenu;
     private javax.swing.JPanel painelBanco;
     private javax.swing.JScrollPane scrollRadio;
